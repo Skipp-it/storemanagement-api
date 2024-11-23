@@ -3,13 +3,10 @@ package com.storemanagement.controller;
 import com.storemanagement.model.Product;
 import com.storemanagement.service.ProductService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/product")
+@RequestMapping("/products")
 public class ProductController {
     private final ProductService productService;
 
@@ -22,4 +19,8 @@ public class ProductController {
         return ResponseEntity.ok(productService.addProduct(product));
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Product> getProduct(@PathVariable Long id) {
+        return productService.getProductById(id).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+    }
 }
