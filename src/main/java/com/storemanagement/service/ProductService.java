@@ -2,6 +2,7 @@ package com.storemanagement.service;
 
 import com.storemanagement.model.CreateProductDto;
 import com.storemanagement.model.Product;
+import com.storemanagement.model.ProductDto;
 import com.storemanagement.model.UpdateProductDto;
 import com.storemanagement.repository.ProductRepository;
 import org.springframework.stereotype.Service;
@@ -16,12 +17,14 @@ public class ProductService {
         this.productRepository = productRepository;
     }
 
-    public Product addProduct (CreateProductDto createProductDto) {
+    public ProductDto addProduct (CreateProductDto createProductDto) {
         Product product = new Product();
         product.setName(createProductDto.name());
         product.setDescription(createProductDto.description());
         product.setPrice(createProductDto.price());
-        return productRepository.save(product);
+
+        Product savedProduct = productRepository.save(product);
+        return mapToDto(savedProduct);
     }
 
     public Optional<Product> getProductById(Long id) {
@@ -35,5 +38,14 @@ public class ProductService {
         product.setDescription(updateProductDto.description());
         product.setPrice(updateProductDto.price());
         return productRepository.save(product);
+    }
+
+    private ProductDto mapToDto(Product product) {
+        return new ProductDto(
+                product.getId(),
+                product.getName(),
+                product.getDescription(),
+                product.getPrice()
+        );
     }
 }

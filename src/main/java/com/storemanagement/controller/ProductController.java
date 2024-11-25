@@ -2,6 +2,7 @@ package com.storemanagement.controller;
 
 import com.storemanagement.model.CreateProductDto;
 import com.storemanagement.model.Product;
+import com.storemanagement.model.ProductDto;
 import com.storemanagement.model.UpdateProductDto;
 import com.storemanagement.service.ProductService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -19,7 +20,7 @@ public class ProductController {
 
     @PostMapping
     @Operation(summary = "Add new product")
-    public ResponseEntity<Product> addProduct (@RequestBody CreateProductDto createProductDto) {
+    public ResponseEntity<ProductDto> addProduct (@RequestBody CreateProductDto createProductDto) {
         return ResponseEntity.ok(productService.addProduct(createProductDto));
     }
 
