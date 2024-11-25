@@ -5,6 +5,7 @@ import com.storemanagement.model.User;
 import com.storemanagement.model.UserCreationDto;
 import com.storemanagement.repository.UserRepository;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,6 +20,7 @@ public class AuthController {
         this.userRepository = userRepository;
     }
 
+    @PostMapping("/register")
     public ResponseEntity<?> registerUser(@RequestBody UserCreationDto userCreationDto) {
         if (userRepository.findByUsername(userCreationDto.getUsername()).isPresent()) {
             return ResponseEntity.badRequest().body("Username is already taken");
