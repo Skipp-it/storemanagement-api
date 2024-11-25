@@ -28,8 +28,8 @@ public class ProductService {
     }
 
     public Optional<ProductDto> getProductById(Long id) {
-        Optional<Product> foundProduct = productRepository.findById(id);
-        return foundProduct.map(this::mapToDto);
+        return productRepository.findByIdAndIsDeletedFalse(id)
+                .map(this::mapToDto);
     }
 
     public ProductDto updateProduct(Long id, UpdateProductDto updateProductDto) {
