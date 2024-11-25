@@ -26,14 +26,14 @@ public class ProductController {
 
     @GetMapping("/{id}")
     @Operation(summary = "Get product by id")
-    public ResponseEntity<Product> getProduct(@PathVariable Long id) {
+    public ResponseEntity<ProductDto> getProduct(@PathVariable Long id) {
         return productService.getProductById(id).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
     @PutMapping("/{id}")
     @Operation(summary = "Update product by id")
     public ResponseEntity<ProductDto> updateProduct(@PathVariable Long id, @RequestBody UpdateProductDto updateProductDto) {
-        return productService.getProductById(id).map(product -> ResponseEntity.ok(productService.updateProduct(id, updateProductDto)))
+        return productService.getProductById(id).map(productDto -> ResponseEntity.ok(productService.updateProduct(id, updateProductDto)))
                 .orElse(ResponseEntity.notFound().build());
     }
 }

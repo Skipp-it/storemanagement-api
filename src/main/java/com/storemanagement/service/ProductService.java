@@ -27,8 +27,9 @@ public class ProductService {
         return mapToDto(savedProduct);
     }
 
-    public Optional<Product> getProductById(Long id) {
-        return productRepository.findById(id);
+    public Optional<ProductDto> getProductById(Long id) {
+        Optional<Product> foundProduct = productRepository.findById(id);
+        return foundProduct.map(this::mapToDto);
     }
 
     public ProductDto updateProduct(Long id, UpdateProductDto updateProductDto) {
