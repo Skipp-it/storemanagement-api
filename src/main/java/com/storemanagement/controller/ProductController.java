@@ -1,7 +1,6 @@
 package com.storemanagement.controller;
 
 import com.storemanagement.model.CreateProductDto;
-import com.storemanagement.model.Product;
 import com.storemanagement.model.ProductDto;
 import com.storemanagement.model.UpdateProductDto;
 import com.storemanagement.service.ProductService;
