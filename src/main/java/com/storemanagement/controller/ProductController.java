@@ -32,7 +32,7 @@ public class ProductController {
 
     @PutMapping("/{id}")
     @Operation(summary = "Update product by id")
-    public ResponseEntity<Product> updateProduct(@PathVariable Long id, @RequestBody UpdateProductDto updateProductDto) {
+    public ResponseEntity<ProductDto> updateProduct(@PathVariable Long id, @RequestBody UpdateProductDto updateProductDto) {
         return productService.getProductById(id).map(product -> ResponseEntity.ok(productService.updateProduct(id, updateProductDto)))
                 .orElse(ResponseEntity.notFound().build());
     }

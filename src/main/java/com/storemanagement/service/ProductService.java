@@ -31,13 +31,14 @@ public class ProductService {
         return productRepository.findById(id);
     }
 
-    public Product updateProduct(Long id, UpdateProductDto updateProductDto) {
+    public ProductDto updateProduct(Long id, UpdateProductDto updateProductDto) {
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Product not found with id: " + id));
         product.setName(updateProductDto.name());
         product.setDescription(updateProductDto.description());
         product.setPrice(updateProductDto.price());
-        return productRepository.save(product);
+        Product updatedProduct = productRepository.save(product);
+        return mapToDto(updatedProduct);
     }
 
     private ProductDto mapToDto(Product product) {
