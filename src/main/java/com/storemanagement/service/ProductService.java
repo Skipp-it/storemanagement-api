@@ -1,5 +1,6 @@
 package com.storemanagement.service;
 
+import com.storemanagement.exception.ProductNotFoundException;
 import com.storemanagement.model.CreateProductDto;
 import com.storemanagement.model.Product;
 import com.storemanagement.model.ProductDto;
@@ -34,7 +35,7 @@ public class ProductService {
 
     public ProductDto updateProduct(Long id, UpdateProductDto updateProductDto) {
         Product product = productRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Product not found with id: " + id));
+                .orElseThrow(() -> new ProductNotFoundException("Product not found with id: " + id));
         product.setName(updateProductDto.name());
         product.setDescription(updateProductDto.description());
         product.setPrice(updateProductDto.price());
@@ -52,7 +53,7 @@ public class ProductService {
     }
 
     public void deleteProduct(Long id) {
-        Product product = productRepository.findByIdAndIsDeletedFalse(id).orElseThrow(() -> new RuntimeException("Product not found with id: " + id));
+        Product product = productRepository.findByIdAndIsDeletedFalse(id).orElseThrow(() -> new ProductNotFoundException("Product not found with id: " + id));
         product.setDeleted(true);
         productRepository.save(product);
     }
