@@ -17,5 +17,5 @@ public class Product {
     private String description;
     private BigDecimal price;
     @Column(nullable = false)
-    private boolean isDeleted=false;
+    private boolean deleted =false;
 }

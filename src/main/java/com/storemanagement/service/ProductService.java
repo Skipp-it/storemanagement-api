@@ -29,7 +29,7 @@ public class ProductService {
     }
 
     public Optional<ProductDto> getProductById(Long id) {
-        return productRepository.findByIdAndIsDeletedFalse(id)
+        return productRepository.findByIdAndDeletedFalse(id)
                 .map(this::mapToDto);
     }
 
@@ -43,6 +43,12 @@ public class ProductService {
         return mapToDto(updatedProduct);
     }
 
+    public void deleteProduct(Long id) {
+        Product product = productRepository.findByIdAndDeletedFalse(id).orElseThrow(() -> new ProductNotFoundException("Product not found with id: " + id));
+        product.setDeleted(true);
+        productRepository.save(product);
+    }
+
     private ProductDto mapToDto(Product product) {
         return new ProductDto(
                 product.getId(),
@@ -50,11 +56,5 @@ public class ProductService {
                 product.getDescription(),
                 product.getPrice()
         );
-    }
-
-    public void deleteProduct(Long id) {
-        Product product = productRepository.findByIdAndIsDeletedFalse(id).orElseThrow(() -> new ProductNotFoundException("Product not found with id: " + id));
-        product.setDeleted(true);
-        productRepository.save(product);
     }
 }
