@@ -1,5 +1,6 @@
 package com.storemanagement.service;
 
+import com.storemanagement.model.CreateProductDto;
 import com.storemanagement.model.Product;
 import com.storemanagement.model.UpdateProductDto;
 import com.storemanagement.repository.ProductRepository;
@@ -15,7 +16,11 @@ public class ProductService {
         this.productRepository = productRepository;
     }
 
-    public Product addProduct (Product product) {
+    public Product addProduct (CreateProductDto createProductDto) {
+        Product product = new Product();
+        product.setName(createProductDto.name());
+        product.setDescription(createProductDto.description());
+        product.setPrice(createProductDto.price());
         return productRepository.save(product);
     }
 
