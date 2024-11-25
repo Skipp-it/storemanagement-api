@@ -50,4 +50,10 @@ public class ProductService {
                 product.getPrice()
         );
     }
+
+    public void deleteProduct(Long id) {
+        Product product = productRepository.findByIdAndIsDeletedFalse(id).orElseThrow(() -> new RuntimeException("Product not found with id: " + id));
+        product.setDeleted(true);
+        productRepository.save(product);
+    }
 }
